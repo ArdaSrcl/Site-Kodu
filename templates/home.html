@@ -25,14 +25,18 @@
   </nav>
   <div class="container mt-4">
     <h1>Welcome to my website!</h1>
-  </div>
-<!-- Yazı yazılacak yeri ayarlama -->
-    <div class="container mt-4">
-        <form action="/process" method="post">
-            <label for="name">Enter your name:</label>
-            <input type="text" id="name" name="name">
-            <button type="submit">Submit</button>
-        </form>
+    <!-- Başarı mesajı -->
+    {% if success %}
+    <div class="alert alert-success" role="alert">
+      Kayıt başarıyla tamamlandı!
     </div>
+    {% endif %}
+    <!-- Form -->
+    <form action="/" method="POST">
+      <label for="name">Enter your name:</label>
+      <input type="text" id="name" name="name">
+      <button type="submit">Submit</button>
+    </form>
+  </div>
 </body>
 </html>

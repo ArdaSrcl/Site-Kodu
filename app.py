@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request
+from flask import Flask, render_template, request, redirect, url_for
 
 app = Flask(__name__)
 
@@ -6,11 +6,19 @@ app = Flask(__name__)
 def home():
     return render_template("home.html")
 
-@app.route("/process", methods=["POST"])
+@app.route("/", methods=["POST"])
 def process():
-    name = request.form.get("name") #name i ceker
-    processed_name = name.upper() 
-    return f"Processed Name: {processed_name}"
+    if request.method == "POST":
+        name = request.form.get("name")
+        processed_name = name.upper()
+
+        # Alınan ismi bir dosyaya yazma
+        with open("kayitlar.txt", "a") as file:
+            file.write(processed_name + "\n")
+
+        return redirect(url_for('home', success=True))
+    else:
+        return "HTTP method not allowed"
 
 @app.route("/members/")
 def members():
